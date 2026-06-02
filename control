@@ -1,0 +1,8 @@
+Package: com.HAMA.modmenu
+Name: HAMA_menu1882
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: HAMA Glass Mod Menu
+Maintainer: HAMA
+Author: HAMA
