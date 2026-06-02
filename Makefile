@@ -4,7 +4,7 @@ ARCHS = arm64 arm64e
 
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = HAMA_menu1882
+TWEAK_NAME = CHYAKO
 HAMA_menu1882_FILES = Tweak.xm
 HAMA_menu1882_FRAMEWORKS = UIKit CoreGraphics QuartzCore
 
