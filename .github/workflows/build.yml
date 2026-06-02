@@ -14,19 +14,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install and Setup Theos
-        run: |
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
-        env:
-          THEOS: ~/theos
+      - name: Clone Theos
+        run: git clone --recursive https://github.com/theos/theos.git ${{ github.workspace }}/theos
 
       - name: Build Project (Make)
         run: make clean all
         env:
-          THEOS: ~/theos
+          THEOS: ${{ github.workspace }}/theos
 
       - name: Upload Compiled File
         uses: actions/upload-artifact@v4
         with:
           name: CHYAKO-Dylib
-          path: .theos/obj/debug/*.dylib
+          path: .theos/obj/**/*.dylib
