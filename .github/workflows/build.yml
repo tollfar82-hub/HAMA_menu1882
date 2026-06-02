@@ -1,21 +1,32 @@
 name: Build Dylib
-on: [push, workflow_dispatch]
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Setup Theos
-      uses: theos/theos-action@v1
+      - name: Install and Setup Theos
+        run: |
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+        env:
+          THEOS: ~/theos
 
-    - name: Build Tweak
-      run: |
-        make package FINALPACKAGE=1
-        
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: ModMenu-Dylib
-        path: .theos/obj/**/*.dylib
+      - name: Build Project (Make)
+        run: make clean all
+        env:
+          THEOS: ~/theos
+
+      - name: Upload Compiled File
+        uses: actions/upload-artifact@v4
+        with:
+          name: CHYAKO-Dylib
+          path: .theos/obj/debug/*.dylib
